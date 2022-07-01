@@ -2,6 +2,8 @@ import React from "react";
 import { Todo } from "../model";
 import { RiEditCircleFill, RiDeleteBinFill } from "react-icons/ri";
 import { IoCheckmarkDoneCircleSharp } from "react-icons/io5";
+import "./styles.css";
+import TodoList from "./TodoList";
 
 type Props = {
   todo: Todo;
@@ -10,6 +12,14 @@ type Props = {
 };
 
 const SingleTodo = ({ todo, todos, setTodos }: Props) => {
+  const handleDone = (id: number) => {
+    setTodos(
+      todos.map((todo) =>
+        todo.id === id ? { ...todo, isDone: !todo.isDone } : todo
+      )
+    );
+  };
+
   return (
     <form className="todos__single">
       <span className="todos__single--text">{todo.todo}</span>
@@ -20,7 +30,7 @@ const SingleTodo = ({ todo, todos, setTodos }: Props) => {
         <span className="icon">
           <RiDeleteBinFill />
         </span>
-        <span className="icon">
+        <span className="icon" onClick={() => handleDone(todo.id)}>
           <IoCheckmarkDoneCircleSharp />
         </span>
       </div>
